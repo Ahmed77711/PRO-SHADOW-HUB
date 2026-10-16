@@ -32,10 +32,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> 
   final String telegramUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
 
-  final List<Map<String, dynamic>> itemsList = [
+  final List<Map<String, dynamic>> itemsList = 
     {
       'title': '💳 طريقة إضافة فيزا وهمية مفعلة',
       'subtitle': 'شرح مباشر لطريقة إنشاء وتفعيل الفيزا الوهمية',
@@ -204,7 +204,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-    );
+   
   }
 
 
