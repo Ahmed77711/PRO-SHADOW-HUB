@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
-  runApp(const ShadowStreamApp());
+  runApp(const ProShadowHubApp());
 }
 
-class ShadowStreamApp extends StatelessWidget {
-  const ShadowStreamApp({super.key});
+class ProShadowHubApp extends StatelessWidget {
+  const ProShadowHubApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +21,25 @@ class ShadowStreamApp extends StatelessWidget {
           surface: Color(0xFF0F172A),
         ),
       ),
-      home: const ShadowStreamHomeScreen(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class ShadowStreamHomeScreen extends StatefulWidget {
-  const ShadowStreamHomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<ShadowStreamHomeScreen> createState() => _ShadowStreamHomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
-  final String _telegramGroupUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
+class _HomeScreenState extends State<HomeScreen> {
+  final String telegramUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
 
-  final List<Map<String, dynamic>> _guidesAndMedia = [
+  final List<Map<String, dynamic>> itemsList = [
     {
       'title': '💳 طريقة إضافة فيزا وهمية مفعلة',
-      'subtitle': 'شرح مباشر لطريقة إنشاء وتفعيل الفيزا الوهمية للاستخدام',
+      'subtitle': 'شرح مباشر لطريقة إنشاء وتفعيل الفيزا الوهمية',
       'url': 'https://www.youtube.com/results?search_query=طريقة+عمل+فيزا+وهمية+تفعيل+سوق+بلاي',
       'icon': Icons.credit_card_rounded,
       'color': const Color(0xFF10B981),
@@ -80,9 +81,9 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
     },
   ];
 
-  Future<void> _openUrl(String urlString) async {
-    final Uri url = Uri.parse(urlString);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+  Future<void> openExternalUrl(String targetUrl) async {
+    final Uri uri = Uri.parse(targetUrl);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('تعذر فتح الرابط.')),
@@ -97,7 +98,7 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
       appBar: AppBar(
         title: const Text(
           'PRO SHADOW HUB',
-          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2.5, color: Colors.amberAccent),
+          style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2.0, color: Colors.amberAccent),
         ),
         centerTitle: true,
         backgroundColor: const Color(0xFF090D16),
@@ -105,8 +106,7 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.send_rounded, color: Color(0xFF3B82F6)),
-            tooltip: 'مجموعة التيليجرام',
-            onPressed: () => _openUrl(_telegramGroupUrl),
+            onPressed: () => openExternalUrl(telegramUrl),
           ),
         ],
       ),
@@ -116,131 +116,98 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Container(
-              padding: const EdgeInsets.all(22),
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
                   colors: [Color(0xFF1E1B4B), Color(0xFF0F172A)],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
-                borderRadius: BorderRadius.circular(24),
+                borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.amberAccent.withOpacity(0.2)),
-                boxShadow: [
-                  BoxShadow(color: Colors.black.withOpacity(0.6), blurRadius: 20, offset: const Offset(0, 10)),
-                ],
               ),
               child: Row(
                 children: [
-                  Container(
-                    padding: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.amberAccent, width: 2),
-                    ),
-                    child: const CircleAvatar(
-                      radius: 28,
-                      backgroundColor: Color(0xFF3B82F6),
-                      child: Icon(Icons.star_rounded, color: Colors.amberAccent, size: 34),
-                    ),
+                  const CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Color(0xFF3B82F6),
+                    child: Icon(Icons.star_rounded, color: Colors.amberAccent, size: 30),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: const [
-                        Text(
-                          'منصة الشروحات والترفيه',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0.5),
-                        ),
-                        SizedBox(height: 6),
-                        Text(
-                          'تجربة سينمائية وتقنية استثنائية',
-                          style: TextStyle(fontSize: 13, color: Colors.white70),
-                        ),
+                        Text('منصة الشروحات والترفيه', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white)),
+                        SizedBox(height: 4),
+                        Text('تجربة استثنائية وشروحات حصرية', style: TextStyle(fontSize: 12, color: Colors.white70)),
                       ],
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16),
             ElevatedButton.icon(
-              onPressed: () => _openUrl(_telegramGroupUrl),
-              icon: const Icon(Icons.telegram, color: Colors.white, size: 24),
-              label: const Text('انضم إلى مجموعة التيليجرام الرسمية', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
+              onPressed: () => openExternalUrl(telegramUrl),
+              icon: const Icon(Icons.telegram, color: Colors.white),
+              label: const Text('انضم إلى مجموعة التيليجرام', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF0088cc),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                elevation: 8,
-                shadowColor: Colors.blue.withOpacity(0.4),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               ),
             ),
-            const SizedBox(height: 14),
+            const SizedBox(height: 12),
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const TasksScreen()));
               },
-              icon: const Icon(Icons.military_tech_rounded, color: Colors.amberAccent, size: 24),
-              label: const Text('مركز المهام والربح (Bybit)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
+              icon: const Icon(Icons.military_tech_rounded, color: Colors.amberAccent),
+              label: const Text('مركز المهام والربح (Bybit)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1E293B),
                 side: const BorderSide(color: Colors.amberAccent),
-                padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                elevation: 8,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               ),
             ),
-            const SizedBox(height: 28),
+            const SizedBox(height: 24),
             const Text(
-              '🔥 الشروحات التقنية والأفلام الحصرية',
-              style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0.5),
+              '🔥 الأقسام والشروحات',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: _guidesAndMedia.length,
+              itemCount: itemsList.length,
               itemBuilder: (context, index) {
-                final item = _guidesAndMedia[index];
+                final item = itemsList[index];
                 return Container(
-                  margin: const EdgeInsets.only(bottom: 14),
+                  margin: const EdgeInsets.only(bottom: 12),
                   decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [const Color(0xFF0F172A), const Color(0xFF1E1B4B).withOpacity(0.5)],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: Colors.white.withOpacity(0.08)),
-                    boxShadow: [
-                      BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 10, offset: const Offset(0, 5)),
-                    ],
+                    color: const Color(0xFF0F172A),
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: Colors.white.withOpacity(0.06)),
                   ),
                   child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     leading: Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: (item['color'] as Color).withOpacity(0.15),
-                        borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: (item['color'] as Color).withOpacity(0.3)),
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(item['icon'], color: item['color'], size: 28),
+                      child: Icon(item['icon'], color: item['color'], size: 26),
                     ),
-                    title: Text(
-                      item['title'],
-                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.white),
-                    ),
+                    title: Text(item['title'], style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: Colors.white)),
                     subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 6.0),
-                      child: Text(
-                        item['subtitle'],
-                        style: const TextStyle(color: Colors.white60, fontSize: 12),
-                      ),
+                      padding: const EdgeInsets.only(top: 4.0),
+                      child: Text(item['subtitle'], style: const TextStyle(color: Colors.white60, fontSize: 11)),
                     ),
-                    trailing: const Icon(Icons.play_circle_fill_rounded, color: Colors.redAccent, size: 40),
-                    onTap: () => _openUrl(item['url']),
+                    trailing: const Icon(Icons.play_circle_fill_rounded, color: Colors.redAccent, size: 36),
+                    onTap: () => openExternalUrl(item['url']),
                   ),
                 );
               },
@@ -260,15 +227,17 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  double _userBalance = 0.00;
-  final String _bybitReferralUrl = 'https://www.bybit.com/invite?ref=7OZW45Z&medium=referral&utm_campaign=evergreen';
-  final String _telegramGroupUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
+  double balance = 0.00;
+  final String bybitUrl = 'https://www.bybit.com/invite?ref=7OZW45Z&medium=referral&utm_campaign=evergreen';
+  final String telegramUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
 
-  Future<void> _openUrl(String urlString) async {
-    final Uri url = Uri.parse(urlString);
-    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+  Future<void> openExternalUrl(String targetUrl) async {
+    final Uri uri = Uri.parse(targetUrl);
+    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('تعذر فتح الرابط.')));
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('تعذر فتح الرابط.')),
+        );
       }
     }
   }
@@ -285,32 +254,31 @@ class _TasksScreenState extends State<TasksScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           Container(
-            padding: const EdgeInsets.all(24),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
               gradient: const LinearGradient(
                 colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [BoxShadow(color: Colors.blue.withOpacity(0.4), blurRadius: 15, offset: const Offset(0, 8))],
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
               children: [
-                const Text('رصيدك المكتسب', style: TextStyle(fontSize: 16, color: Colors.white70)),
-                const SizedBox(height: 8),
-                Text('\$${_userBalance.toStringAsFixed(2)}', style: const TextStyle(fontSize: 38, fontWeight: FontWeight.bold, color: Colors.white)),
+                const Text('رصيدك المكتسب', style: TextStyle(fontSize: 15, color: Colors.white70)),
+                const SizedBox(height: 6),
+                Text('\$${balance.toStringAsFixed(2)}', style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
               ],
             ),
           ),
-          const SizedBox(height: 24),
-          const Text('المهمات المتاحة للربح:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
-          const SizedBox(height: 16),
+          const SizedBox(height: 20),
+          const Text('المهمات المتاحة:', style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold, color: Colors.white)),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: const Color(0xFF0F172A),
-              borderRadius: BorderRadius.circular(18),
+              borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Colors.amberAccent.withOpacity(0.2)),
             ),
             child: Column(
@@ -319,41 +287,40 @@ class _TasksScreenState extends State<TasksScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('فيزا Bybit مجانية (كود: 7OZW45Z)', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
-                    Text('\$0.50', style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text('فيزا Bybit مجانية (7OZW45Z)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text('\$0.50', style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold, fontSize: 15)),
                   ],
                 ),
-                const SizedBox(height: 8),
-                const Text('سجل عبر رابط الإحالة واحصل على الفيزا المجانية الفورية.', style: TextStyle(fontSize: 13, color: Colors.white60)),
-                const SizedBox(height: 16),
+                const SizedBox(height: 6),
+                const Text('سجل عبر رابط الإحالة واحصل على الفيزا.', style: TextStyle(fontSize: 12, color: Colors.white60)),
+                const SizedBox(height: 14),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      await _openUrl(_bybitReferralUrl);
+                      await openExternalUrl(bybitUrl);
                       setState(() {
-                        _userBalance += 0.50;
+                        balance += 0.50;
                       });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF10B981),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      elevation: 5,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('احصل على الفيزا الآن', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: const Text('احصل على الفيزا', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 12),
           Container(
-            padding: const EdgeInsets.all(18),
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: const Color(0xFF0F172A),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Colors.white.withOpacity(0.08)),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(color: Colors.white.withOpacity(0.06)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -361,29 +328,28 @@ class _TasksScreenState extends State<TasksScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
-                    Text('الانضمام لمجموعة التيليجرام', style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white)),
-                    Text('\$0.10', style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold, fontSize: 16)),
+                    Text('الانضمام لمجموعة التيليجرام', style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text('\$0.10', style: TextStyle(color: Colors.amberAccent, fontWeight: FontWeight.bold, fontSize: 15)),
                   ],
                 ),
-                const SizedBox(height: 8),
-                const Text('انضم إلى مجموعتنا الرسمية لتتابع كل جديد.', style: TextStyle(fontSize: 13, color: Colors.white60)),
-                const SizedBox(height: 16),
+                const SizedBox(height: 6),
+                const Text('انضم لمجموعتنا الرسمية.', style: TextStyle(fontSize: 12, color: Colors.white60)),
+                const SizedBox(height: 14),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      await _openUrl(_telegramGroupUrl);
+                      await openExternalUrl(telegramUrl);
                       setState(() {
-                        _userBalance += 0.10;
+                        balance += 0.10;
                       });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF0088cc),
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                      elevation: 5,
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('انضم للمجموعة الآن', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    child: const Text('انضم للمجموعة', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
