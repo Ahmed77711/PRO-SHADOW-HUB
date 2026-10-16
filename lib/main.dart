@@ -12,9 +12,9 @@ class ShadowStreamApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'SHADOW STREAM',
+      title: 'PRO SHADOW HUB',
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF030712), // أسود فاحم ملكي
+        scaffoldBackgroundColor: const Color(0xFF030712),
         colorScheme: const ColorScheme.dark(
           primary: Color(0xFF3B82F6),
           secondary: Color(0xFF10B981),
@@ -36,7 +36,6 @@ class ShadowStreamHomeScreen extends StatefulWidget {
 class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
   final String _telegramGroupUrl = 'https://t.me/+ADCq_-JXiuE3NGU0';
 
-  // الشروحات والأقسام الفخمة مع روابط يوتيوب مباشرة
   final List<Map<String, dynamic>> _guidesAndMedia = [
     {
       'title': '💳 طريقة إضافة فيزا وهمية مفعلة',
@@ -98,7 +97,7 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'SHADOW STREAM',
+          'PRO SHADOW HUB',
           style: TextStyle(fontWeight: FontWeight.w900, letterSpacing: 2.5, color: Colors.amberAccent),
         ),
         centerTitle: true,
@@ -117,7 +116,6 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // بطاقة الترويسة الملكية (Luxury Hero Banner)
             Container(
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
@@ -167,8 +165,6 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
               ),
             ),
             const SizedBox(height: 20),
-
-            // زر الانضمام لمجموعة التيليجرام الفخم
             ElevatedButton.icon(
               onPressed: () => _openUrl(_telegramGroupUrl),
               icon: const Icon(Icons.telegram, color: Colors.white, size: 24),
@@ -182,8 +178,6 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
               ),
             ),
             const SizedBox(height: 14),
-
-            // زر مركز المهام والربح الملكي
             ElevatedButton.icon(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const TasksScreen()));
@@ -192,22 +186,18 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
               label: const Text('مركز المهام والربح (Bybit)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1E293B),
-                side: Border.all(color: Colors.amberAccent.withOpacity(0.4)),
+                side: BorderSide(color: Colors.amberAccent.withOpacity(0.4)),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 elevation: 8,
               ),
             ),
             const SizedBox(height: 28),
-
-            // ترويسة الأقسام
             const Text(
               '🔥 الشروحات التقنية والأفلام الحصرية',
               style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 0.5),
             ),
             const SizedBox(height: 16),
-
-            // قائمة الأقسام بتصميم بطاقات فخمة
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -263,7 +253,6 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
   }
 }
 
-// ================= صفحة المهام والربح الملكية =================
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
 
@@ -296,7 +285,6 @@ class _TasksScreenState extends State<TasksScreen> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          // كارت الرصيد الفاخر
           Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
@@ -319,8 +307,6 @@ class _TasksScreenState extends State<TasksScreen> {
           const SizedBox(height: 24),
           const Text('المهمات المتاحة للربح:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
           const SizedBox(height: 16),
-          
-          // مهمة Bybit الفخمة
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
@@ -363,8 +349,6 @@ class _TasksScreenState extends State<TasksScreen> {
             ),
           ),
           const SizedBox(height: 14),
-
-          // مهمة التيليجرام الفخمة
           Container(
             padding: const EdgeInsets.all(18),
             decoration: BoxDecoration(
