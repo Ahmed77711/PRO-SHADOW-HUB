@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const ShadowStreamApp());
@@ -185,7 +186,7 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
               label: const Text('مركز المهام والربح (Bybit)', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 15)),
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFF1E293B),
-                side: BorderSide(color: Colors.amberAccent.withOpacity(0.4)),
+                side: const BorderSide(color: Colors.amberAccent),
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 elevation: 8,
@@ -207,7 +208,7 @@ class _ShadowStreamHomeScreenState extends State<ShadowStreamHomeScreen> {
                   margin: const EdgeInsets.only(bottom: 14),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [const Color(0xFF0F172A), const Color(0xFF1E293B).withOpacity(0.5)],
+                      colors: [const Color(0xFF0F172A), const Color(0xFF1E1B4B).withOpacity(0.5)],
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                     ),
